@@ -1,0 +1,36 @@
+# Site settings
+title: Tor Morten Jensen
+email: tormorten@tormorten.no
+description: ""
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Add custom collections
+collections:
+  work:
+    output: true
+
+# Set defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"    
+      author: "Tor Morten Jensen"
+      date: "2018-04-05 08:00:00"
+      title: ""
+      category: ""
+      tags: ""
+      

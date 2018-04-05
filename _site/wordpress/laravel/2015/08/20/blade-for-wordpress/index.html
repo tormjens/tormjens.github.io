@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Blade for WordPress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <link rel="canonical" href="http://localhost:4000/wordpress/laravel/2015/08/20/blade-for-wordpress/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/hover.zoom.js" ></script>
+    <script src="/assets/js/hover.zoom.conf.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+
+    <body>
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Tor Morten Jensen</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Blog</a></li>
+            <li><a href="/me/">Me</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    	<!-- +++++ Post +++++ -->
+	<div id="white">
+	    <div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>August 20, 2015</bd></p>
+					<h4>Blade for WordPress</h4>
+					<p></p>
+					<p><p>Lately I’ve been working on an internal project that we’ve chosen to build on Laravel. Laravel is packed with amazing things like the Eloquent ORM and the general “easyness” of the API. The most amazing thing, however, is the Blade templating engine. I love this thing!</p>
+
+<p>You can easily extend templates and include them with a breeze. It really helps you with your rapid front-end development.</p>
+
+<p>So, I’m in love with Blade, but I’m primarily a WordPress developer. Sucks to be me right?</p>
+
+<p>Well, no, not really. There are some existing options on how to use Blade in your WordPress theme.</p>
+
+<p>Like the <a href="https://wordpress.org/plugins/blade/">Blade for WordPress plugin</a>, or even the <a href="http://cutlasswp.com/">CutlassWP WordPress theme</a> (which uses the functionality from the said plugin and is Roots-based). These are great, but the thing is.. They use a really old version of Blade. In fact. It is the Blade that was bundled with Laravel 3. There’s been two iterations of Laravel since then, and in that also Blade.</p>
+
+<p>The other thing is that I’ve gotten used to my own starter theme, so I’m not really feeling like switching to a new theme and start an all new workflow. I should be able to use the latest version of Blade, and I should be able to implement it in my own theme.</p>
+
+<blockquote>
+  <p>So, why not create my own Blade for WordPress?</p>
+</blockquote>
+
+<p>I really like using Composer for handling my dependencies, so I decided to make it a class one can include in projects.</p>
+
+<p>It kind of works the same way those other alternatives work, but does not require you to install another plugin or switch out your starter theme.</p>
+
+<p>Have a look! It’s <a href="https://github.com/tormjens/wp-blade">over at Github</a>.</p>
+</p>
+					<br>
+					<p><bt>Category:  <a href="#">wordpress</a>  <a href="#">laravel</a>  <a href="#"></a> </bt></p>
+					<p><bt>Tags: </bt></p>					
+					<hr>
+					<p><a href="/blog/"># Back</a></p>
+				</div>
+
+			</div><!-- /row -->
+	    </div> <!-- /container -->
+	</div><!-- /white -->
+
+    <div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+                <h4>Contact Me</h4>
+                <p>I'm on <a href="https://github.com/tormjens">Github</a> and <a href="https://twitter.com/tormorten">Twitter</a>. Please <a href="mailto:tormorten@tormorten.no">shoot me an e-mail</a> if you have any questions.</p>
+			</div><!-- /col-lg-4 -->
+			
+		</div>
+	
+	</div>
+</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>

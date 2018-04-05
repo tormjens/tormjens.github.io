@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tor Morten Jensen</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Bringing the queue to WordPress</title>
+        <description>&lt;p&gt;In Laravel you have the concept of queues, where you push a job in to the queue and a queue worker executes jobs asynchronously one by one. This is a great feature of Laravel.&lt;/p&gt;
+
+&lt;p&gt;At OSM Aviation we send a great amount of emails from our website. Sometimes we might need to send thousands of emails at the same time. This is an operation that would get real slow real fast; an ideal job for a queue.&lt;/p&gt;
+
+&lt;p&gt;Sadly, WordPress does not have such feature. The wp_mail function is a fire and forget kind of feature. Luckily there are many smart people out there, and there is a solution for features.&lt;/p&gt;
+
+&lt;h5 id=&quot;finding-the-perfect-solution&quot;&gt;Finding the perfect solution&lt;/h5&gt;
+
+&lt;p&gt;During my search for WordPress Queues I first found a solution which runs through wp-cron. This however ended up as a bottle-neck when sending many emails and ended up bringing our whole site down for a couple of hours. Not optimal for a mission-critical website.&lt;/p&gt;
+
+&lt;p&gt;A promising solution was a neat plugin created by A5hleyRich. This took care of the queue problem, but it had some shortcomings. There was no CLI, so it was not ready for production. Based on this great plugin I found a hidden gem in MailChimp for WooCommerce plugin. They had created a command for WP-CLI that ran a queue worker. They had also implemented a “failed_jobs” feature which could prove handy if something went wrong. None of these solutions took care of mail problem though. So I would have to wire something up myself.&lt;/p&gt;
+
+&lt;h5 id=&quot;putting-it-together&quot;&gt;Putting it together&lt;/h5&gt;
+
+&lt;p&gt;I found this to be a fun little exercise in using WordPress’ pluggable functions. Since wp_mail can not be short-circuited, I figured I could just create my own wp_mail function that would be used in favor of the one in WP core. I took the original wp_mail function from core, and created it as a new function called wp_real_mail. This would send e-mail directly via the credentials provided in the application.&lt;/p&gt;
+
+&lt;p&gt;The wp_mail function’s only task would be to push anything thats sent through it to the new Queue system. Using the great work from the MailChimp-plugin this function boils down to two lines.&lt;/p&gt;
+
+&lt;p&gt;E-mails sent via the website is now served up using a queue, allowing us to send as many e-mails as we need in one go without having to worry about it taking several minutes to execute. Actually, since June we’ve sent over 15000 emails using this new queue feature and haven’t had a single mail that hasn’t been sent.&lt;/p&gt;
+
+&lt;p&gt;The queue worker is run on the server by Supervisor, so it is restarted when it crashes.&lt;/p&gt;
+
+&lt;h5 id=&quot;check-it-out-now&quot;&gt;Check it out now&lt;/h5&gt;
+
+&lt;p&gt;It has all been bundled up in a plugin that is availiable on Github, along with its documentation. Since it replaces the wp_mail function I recommend you put in your &lt;code class=&quot;highlighter-rouge&quot;&gt;mu-plugins&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tormjens/wp-queue-mail&quot;&gt;Check it out on Github now!&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 02 Aug 2017 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/wordpress/laravel/2017/08/02/bringing-the-queue-to-wordpress/</link>
+        <guid isPermaLink="true">http://localhost:4000/wordpress/laravel/2017/08/02/bringing-the-queue-to-wordpress/</guid>
+      </item>
+    
+      <item>
+        <title>The DOM Router improved</title>
+        <description>&lt;p&gt;I’ve previously written about my port of the DOM router which is bundled with the Sage starter theme.&lt;/p&gt;
+
+&lt;p&gt;This handy little mofo has been used on all my client projects for the past 2 years, and I couldn’t be happier.&lt;/p&gt;
+
+&lt;p&gt;Something that has annoyed me, however, is that it requires jQuery. There’s not reason jQuery was needed in the first place, but back then I jQueried all the things.&lt;/p&gt;
+
+&lt;p&gt;Last week I spent a couple hours one night to port the port to a more usable module. It was also a neat project to write Vanilla-ish javascript.&lt;/p&gt;
+
+&lt;p&gt;The result is DumDum.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/pZT27f3.gif&quot; alt=&quot;DumDum&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DumDum is a ES2015 class and has all the same properties as the old jQuery DOM Router.&lt;/p&gt;
+
+&lt;p&gt;You can import/require it to your project. Or simply load up the distribution file to use the browser global.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tormjens/dumdum-js&quot;&gt;Read more on Github&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Feb 2017 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/javascript/2017/02/17/the-dom-router-improved/</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript/2017/02/17/the-dom-router-improved/</guid>
+      </item>
+    
+      <item>
+        <title>Actions and filters in Laravel</title>
+        <description>&lt;p&gt;I really like the way events work in WordPress. It’s just really simple how you can hook into difference points in your code.&lt;/p&gt;
+
+&lt;p&gt;Yes, Laravel has it’s own event system. But I found this to be both confusing and hard to use. While classes are all fine and dandy, I do feel there are such things as too many of them. I also like the idea of events being triggered on hook names.&lt;/p&gt;
+
+&lt;p&gt;So that’s why I made Eventy (yes, stupid name, but that’s what I got).&lt;/p&gt;
+
+&lt;p&gt;Eventy is the WordPress action &amp;amp; filters in Laravel. You add actions/filters in your code, and add listeners to them later.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tormjens/eventy&quot;&gt;Check out Eventy on Github!&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Feb 2017 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/laravel/wordpress/2017/02/17/actions-and-filters-in-laravel/</link>
+        <guid isPermaLink="true">http://localhost:4000/laravel/wordpress/2017/02/17/actions-and-filters-in-laravel/</guid>
+      </item>
+    
+      <item>
+        <title>Blade for WordPress</title>
+        <description>&lt;p&gt;Lately I’ve been working on an internal project that we’ve chosen to build on Laravel. Laravel is packed with amazing things like the Eloquent ORM and the general “easyness” of the API. The most amazing thing, however, is the Blade templating engine. I love this thing!&lt;/p&gt;
+
+&lt;p&gt;You can easily extend templates and include them with a breeze. It really helps you with your rapid front-end development.&lt;/p&gt;
+
+&lt;p&gt;So, I’m in love with Blade, but I’m primarily a WordPress developer. Sucks to be me right?&lt;/p&gt;
+
+&lt;p&gt;Well, no, not really. There are some existing options on how to use Blade in your WordPress theme.&lt;/p&gt;
+
+&lt;p&gt;Like the &lt;a href=&quot;https://wordpress.org/plugins/blade/&quot;&gt;Blade for WordPress plugin&lt;/a&gt;, or even the &lt;a href=&quot;http://cutlasswp.com/&quot;&gt;CutlassWP WordPress theme&lt;/a&gt; (which uses the functionality from the said plugin and is Roots-based). These are great, but the thing is.. They use a really old version of Blade. In fact. It is the Blade that was bundled with Laravel 3. There’s been two iterations of Laravel since then, and in that also Blade.&lt;/p&gt;
+
+&lt;p&gt;The other thing is that I’ve gotten used to my own starter theme, so I’m not really feeling like switching to a new theme and start an all new workflow. I should be able to use the latest version of Blade, and I should be able to implement it in my own theme.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;So, why not create my own Blade for WordPress?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I really like using Composer for handling my dependencies, so I decided to make it a class one can include in projects.&lt;/p&gt;
+
+&lt;p&gt;It kind of works the same way those other alternatives work, but does not require you to install another plugin or switch out your starter theme.&lt;/p&gt;
+
+&lt;p&gt;Have a look! It’s &lt;a href=&quot;https://github.com/tormjens/wp-blade&quot;&gt;over at Github&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Aug 2015 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/wordpress/laravel/2015/08/20/blade-for-wordpress/</link>
+        <guid isPermaLink="true">http://localhost:4000/wordpress/laravel/2015/08/20/blade-for-wordpress/</guid>
+      </item>
+    
+  </channel>
+</rss>

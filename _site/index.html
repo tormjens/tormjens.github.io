@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tor Morten Jensen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <link rel="canonical" href="http://localhost:4000/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/hover.zoom.js" ></script>
+    <script src="/assets/js/hover.zoom.conf.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+
+    <body>
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Tor Morten Jensen</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Blog</a></li>
+            <li><a href="/me/">Me</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    <div class="page-content">
+    <div class="wrap">
+    <div class="posts">
+
+	<div class="post-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>August 2, 2017</bd></p>
+					<h4>Bringing the queue to WordPress</h4>
+                    <p></p>
+					<p>In Laravel you have the concept of queues, where you push a job in to the queue and a queue worker executes jobs asynchronously one by one. This is a great feature of Laravel.</p>
+
+<p>At OSM Aviation we send a great amount of emails from our website. Sometimes we might need to send thousands of emails at the same time. This is an operation that would get real slow real fast; an ideal job for a queue.</p>
+
+<p>Sadly, WordPress does not have such feature. The wp_mail function is a fire and forget kind of feature. Luckily there are many smart people out there, and there is a solution for features.</p>
+
+<h5 id="finding-the-perfect-solution">Finding the perfect solution</h5>
+
+<p>During my search for WordPress Queues I first found a solution which runs through wp-cron. This however ended up as a bottle-neck when sending many emails and ended up bringing our whole site down for a couple of hours. Not optimal for a mission-critical website.</p>
+
+<p>A promising solution was a neat plugin created by A5hleyRich. This took care of the queue problem, but it had some shortcomings. There was no CLI, so it was not ready for production. Based on this great plugin I found a hidden gem in MailChimp for WooCommerce plugin. They had created a command for WP-CLI that ran a queue worker. They had also implemented a “failed_jobs” feature which could prove handy if something went wrong. None of these solutions took care of mail problem though. So I would have to wire something up myself.</p>
+
+<h5 id="putting-it-together">Putting it together</h5>
+
+<p>I found this to be a fun little exercise in using WordPress’ pluggable functions. Since wp_mail can not be short-circuited, I figured I could just create my own wp_mail function that would be used in favor of the one in WP core. I took the original wp_mail function from core, and created it as a new function called wp_real_mail. This would send e-mail directly via the credentials provided in the application.</p>
+
+<p>The wp_mail function’s only task would be to push anything thats sent through it to the new Queue system. Using the great work from the MailChimp-plugin this function boils down to two lines.</p>
+
+<p>E-mails sent via the website is now served up using a queue, allowing us to send as many e-mails as we need in one go without having to worry about it taking several minutes to execute. Actually, since June we’ve sent over 15000 emails using this new queue feature and haven’t had a single mail that hasn’t been sent.</p>
+
+<p>The queue worker is run on the server by Supervisor, so it is restarted when it crashes.</p>
+
+<h5 id="check-it-out-now">Check it out now</h5>
+
+<p>It has all been bundled up in a plugin that is availiable on Github, along with its documentation. Since it replaces the wp_mail function I recommend you put in your <code class="highlighter-rouge">mu-plugins</code> directory.</p>
+
+<p><a href="https://github.com/tormjens/wp-queue-mail">Check it out on Github now!</a></p>
+
+				</div>
+			</div><!-- /row -->
+		</div> <!-- /container -->
+	</div> <!-- /post-section -->
+
+	<div class="post-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>February 17, 2017</bd></p>
+					<h4>The DOM Router improved</h4>
+                    <p></p>
+					<p>I’ve previously written about my port of the DOM router which is bundled with the Sage starter theme.</p>
+
+<p>This handy little mofo has been used on all my client projects for the past 2 years, and I couldn’t be happier.</p>
+
+<p>Something that has annoyed me, however, is that it requires jQuery. There’s not reason jQuery was needed in the first place, but back then I jQueried all the things.</p>
+
+<p>Last week I spent a couple hours one night to port the port to a more usable module. It was also a neat project to write Vanilla-ish javascript.</p>
+
+<p>The result is DumDum.</p>
+
+<p><img src="/assets/img/blog/pZT27f3.gif" alt="DumDum" /></p>
+
+<p>DumDum is a ES2015 class and has all the same properties as the old jQuery DOM Router.</p>
+
+<p>You can import/require it to your project. Or simply load up the distribution file to use the browser global.</p>
+
+<p><a href="https://github.com/tormjens/dumdum-js">Read more on Github</a></p>
+
+				</div>
+			</div><!-- /row -->
+		</div> <!-- /container -->
+	</div> <!-- /post-section -->
+
+	<div class="post-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>February 17, 2017</bd></p>
+					<h4>Actions and filters in Laravel</h4>
+                    <p></p>
+					<p>I really like the way events work in WordPress. It’s just really simple how you can hook into difference points in your code.</p>
+
+<p>Yes, Laravel has it’s own event system. But I found this to be both confusing and hard to use. While classes are all fine and dandy, I do feel there are such things as too many of them. I also like the idea of events being triggered on hook names.</p>
+
+<p>So that’s why I made Eventy (yes, stupid name, but that’s what I got).</p>
+
+<p>Eventy is the WordPress action &amp; filters in Laravel. You add actions/filters in your code, and add listeners to them later.</p>
+
+<p><a href="https://github.com/tormjens/eventy">Check out Eventy on Github!</a></p>
+
+				</div>
+			</div><!-- /row -->
+		</div> <!-- /container -->
+	</div> <!-- /post-section -->
+
+	<div class="post-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>August 20, 2015</bd></p>
+					<h4>Blade for WordPress</h4>
+                    <p></p>
+					<p>Lately I’ve been working on an internal project that we’ve chosen to build on Laravel. Laravel is packed with amazing things like the Eloquent ORM and the general “easyness” of the API. The most amazing thing, however, is the Blade templating engine. I love this thing!</p>
+
+<p>You can easily extend templates and include them with a breeze. It really helps you with your rapid front-end development.</p>
+
+<p>So, I’m in love with Blade, but I’m primarily a WordPress developer. Sucks to be me right?</p>
+
+<p>Well, no, not really. There are some existing options on how to use Blade in your WordPress theme.</p>
+
+<p>Like the <a href="https://wordpress.org/plugins/blade/">Blade for WordPress plugin</a>, or even the <a href="http://cutlasswp.com/">CutlassWP WordPress theme</a> (which uses the functionality from the said plugin and is Roots-based). These are great, but the thing is.. They use a really old version of Blade. In fact. It is the Blade that was bundled with Laravel 3. There’s been two iterations of Laravel since then, and in that also Blade.</p>
+
+<p>The other thing is that I’ve gotten used to my own starter theme, so I’m not really feeling like switching to a new theme and start an all new workflow. I should be able to use the latest version of Blade, and I should be able to implement it in my own theme.</p>
+
+<blockquote>
+  <p>So, why not create my own Blade for WordPress?</p>
+</blockquote>
+
+<p>I really like using Composer for handling my dependencies, so I decided to make it a class one can include in projects.</p>
+
+<p>It kind of works the same way those other alternatives work, but does not require you to install another plugin or switch out your starter theme.</p>
+
+<p>Have a look! It’s <a href="https://github.com/tormjens/wp-blade">over at Github</a>.</p>
+
+				</div>
+			</div><!-- /row -->
+		</div> <!-- /container -->
+	</div> <!-- /post-section -->
+
+</div>
+
+    </div>
+</div>
+
+
+    <div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+                <h4>Contact Me</h4>
+                <p>I'm on <a href="https://github.com/tormjens">Github</a> and <a href="https://twitter.com/tormorten">Twitter</a>. Please <a href="mailto:tormorten@tormorten.no">shoot me an e-mail</a> if you have any questions.</p>
+			</div><!-- /col-lg-4 -->
+			
+		</div>
+	
+	</div>
+</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>

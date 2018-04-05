@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bringing the queue to WordPress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <link rel="canonical" href="http://localhost:4000/wordpress/laravel/2017/08/02/bringing-the-queue-to-wordpress/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/hover.zoom.js" ></script>
+    <script src="/assets/js/hover.zoom.conf.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+
+    <body>
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Tor Morten Jensen</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Blog</a></li>
+            <li><a href="/me/">Me</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    	<!-- +++++ Post +++++ -->
+	<div id="white">
+	    <div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><img src="/assets/img/user.png" width="50px" height="50px"> <ba>Tor Morten Jensen</ba></p>
+					<p><bd>August 2, 2017</bd></p>
+					<h4>Bringing the queue to WordPress</h4>
+					<p></p>
+					<p><p>In Laravel you have the concept of queues, where you push a job in to the queue and a queue worker executes jobs asynchronously one by one. This is a great feature of Laravel.</p>
+
+<p>At OSM Aviation we send a great amount of emails from our website. Sometimes we might need to send thousands of emails at the same time. This is an operation that would get real slow real fast; an ideal job for a queue.</p>
+
+<p>Sadly, WordPress does not have such feature. The wp_mail function is a fire and forget kind of feature. Luckily there are many smart people out there, and there is a solution for features.</p>
+
+<h5 id="finding-the-perfect-solution">Finding the perfect solution</h5>
+
+<p>During my search for WordPress Queues I first found a solution which runs through wp-cron. This however ended up as a bottle-neck when sending many emails and ended up bringing our whole site down for a couple of hours. Not optimal for a mission-critical website.</p>
+
+<p>A promising solution was a neat plugin created by A5hleyRich. This took care of the queue problem, but it had some shortcomings. There was no CLI, so it was not ready for production. Based on this great plugin I found a hidden gem in MailChimp for WooCommerce plugin. They had created a command for WP-CLI that ran a queue worker. They had also implemented a “failed_jobs” feature which could prove handy if something went wrong. None of these solutions took care of mail problem though. So I would have to wire something up myself.</p>
+
+<h5 id="putting-it-together">Putting it together</h5>
+
+<p>I found this to be a fun little exercise in using WordPress’ pluggable functions. Since wp_mail can not be short-circuited, I figured I could just create my own wp_mail function that would be used in favor of the one in WP core. I took the original wp_mail function from core, and created it as a new function called wp_real_mail. This would send e-mail directly via the credentials provided in the application.</p>
+
+<p>The wp_mail function’s only task would be to push anything thats sent through it to the new Queue system. Using the great work from the MailChimp-plugin this function boils down to two lines.</p>
+
+<p>E-mails sent via the website is now served up using a queue, allowing us to send as many e-mails as we need in one go without having to worry about it taking several minutes to execute. Actually, since June we’ve sent over 15000 emails using this new queue feature and haven’t had a single mail that hasn’t been sent.</p>
+
+<p>The queue worker is run on the server by Supervisor, so it is restarted when it crashes.</p>
+
+<h5 id="check-it-out-now">Check it out now</h5>
+
+<p>It has all been bundled up in a plugin that is availiable on Github, along with its documentation. Since it replaces the wp_mail function I recommend you put in your <code class="highlighter-rouge">mu-plugins</code> directory.</p>
+
+<p><a href="https://github.com/tormjens/wp-queue-mail">Check it out on Github now!</a></p>
+</p>
+					<br>
+					<p><bt>Category:  <a href="#">wordpress</a>  <a href="#">laravel</a>  <a href="#"></a> </bt></p>
+					<p><bt>Tags: </bt></p>					
+					<hr>
+					<p><a href="/blog/"># Back</a></p>
+				</div>
+
+			</div><!-- /row -->
+	    </div> <!-- /container -->
+	</div><!-- /white -->
+
+    <div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+                <h4>Contact Me</h4>
+                <p>I'm on <a href="https://github.com/tormjens">Github</a> and <a href="https://twitter.com/tormorten">Twitter</a>. Please <a href="mailto:tormorten@tormorten.no">shoot me an e-mail</a> if you have any questions.</p>
+			</div><!-- /col-lg-4 -->
+			
+		</div>
+	
+	</div>
+</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>
