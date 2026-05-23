@@ -1,0 +1,64 @@
+---
+interface Post {
+  slug: string;
+  data: {
+    title: string;
+    date: string;
+  };
+}
+
+interface Props {
+  posts: Post[];
+  limit?: number;
+}
+
+const { posts, limit = 5 } = Astro.props;
+const displayPosts = posts.slice(0, limit);
+
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<section class="max-w-[1240px] mx-auto px-6 md:px-8 py-12 md:py-16 border-t border-border">
+  <div class="mb-8 flex items-end justify-between">
+    <div>
+      <span class="font-mono text-xs uppercase tracking-widest text-fg-faint">// writing</span>
+      <h2 class="section-title font-mono text-fg mt-2">Recent posts</h2>
+    </div>
+    <a
+      href="/blog"
+      class="font-mono text-sm text-fg-dim hover:text-accent transition-colors duration-120 shrink-0 ml-8"
+    >
+      all posts →
+    </a>
+  </div>
+
+  <div class="flex flex-col">
+    {
+      displayPosts.map((post) => (
+        <a
+          href={`/blog/${post.slug}`}
+          class="group flex flex-col sm:flex-row sm:items-baseline sm:justify-between py-5 border-t border-border hover:pl-2 transition-all duration-200"
+        >
+          <h3 class="font-mono text-base font-medium text-fg group-hover:text-accent transition-colors duration-120 flex-1 sm:mr-8 leading-snug">
+            {post.data.title}
+          </h3>
+          <time
+            class="font-mono text-sm text-fg-faint shrink-0 mt-1 sm:mt-0"
+            datetime={post.data.date}
+          >
+            {formatDate(post.data.date)}
+          </time>
+        </a>
+      ))
+    }
+    {
+      displayPosts.length === 0 && (
+        <p class="font-mono text-sm text-fg-faint py-5 border-t border-border">No posts yet.</p>
+      )
+    }
+    <div class="border-b border-border" />
+  </div>
+</section>

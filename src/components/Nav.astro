@@ -1,0 +1,37 @@
+---
+const pathname = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 nav-glass border-b border-border/50">
+  <nav class="max-w-[1240px] mx-auto px-6 md:px-8 py-5 flex items-center justify-between">
+    <a
+      href="/"
+      class="font-mono text-lg font-medium text-fg hover:text-accent transition-colors duration-120"
+      style="letter-spacing: -0.04em;"
+    >
+      tormorten<span class="text-accent">.</span>no
+    </a>
+
+    <div class="flex items-center gap-1">
+      <a
+        href="/blog"
+        class:list={[
+          'font-mono text-sm px-3 py-1.5 rounded-md transition-all duration-120',
+          pathname.startsWith('/blog')
+            ? 'text-fg bg-elevated'
+            : 'text-fg-dim hover:text-fg hover:bg-elevated',
+        ]}
+      >
+        blog
+      </a>
+      <a
+        href="https://github.com/tormjens"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-mono text-sm text-fg-dim hover:text-fg hover:bg-elevated px-3 py-1.5 rounded-md transition-all duration-120"
+      >
+        github
+      </a>
+    </div>
+  </nav>
+</header>

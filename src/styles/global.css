@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-bg text-fg antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: rgba(170, 255, 0, 0.18);
+    color: #aaff00;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .hero-title {
+    font-size: clamp(2.75rem, 8vw, 6rem);
+    line-height: 0.97;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4.5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+  }
+
+  .nav-glass {
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .accent-left-bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #aaff00;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    border-radius: 2px 0 0 2px;
+  }
+
+  .accent-left-bar:hover::before {
+    opacity: 1;
+  }
+}

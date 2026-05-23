@@ -1,0 +1,87 @@
+---
+---
+
+<section class="max-w-[1240px] mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-20 md:pb-28">
+  <div class="mb-5">
+    <span class="font-mono text-xs uppercase tracking-widest text-fg-faint">
+      // engineering manager · verdal, norge
+    </span>
+  </div>
+
+  <h1 class="hero-title font-mono text-fg mb-7 max-w-[18ch]">
+    Engineering<br />
+    manager.<br />
+    Building <span class="text-accent">developer&nbsp;tools</span><br />
+    on the side.
+  </h1>
+
+  <p class="font-mono text-base md:text-lg text-fg-muted max-w-[52ch] mb-10 leading-relaxed">
+    I'm Tor Morten Jensen, based in Verdal, Norge. I build tools for
+    developers — mostly in the Laravel and PHP ecosystem. Currently working
+    on Deck, an observability and control layer for Laravel queues.
+  </p>
+
+  <div class="flex flex-wrap gap-3">
+    <a
+      href="https://deckapp.cloud"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-mono text-sm font-medium px-4 py-2.5 rounded-md bg-accent text-bg hover:bg-accent-dark transition-all duration-120 inline-flex items-center gap-2"
+    >
+      Check out Deck <span class="opacity-70">→</span>
+    </a>
+    <a
+      href="https://github.com/tormjens"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-mono text-sm font-medium px-4 py-2.5 rounded-md bg-elevated text-fg border border-border-strong hover:bg-surface-2 hover:border-border-strong/80 transition-all duration-120"
+    >
+      GitHub
+    </a>
+  </div>
+
+  <!-- Terminal block -->
+  <div
+    class="mt-16 max-w-[600px] bg-surface border border-border rounded-xl overflow-hidden font-mono text-sm"
+    style="box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);"
+  >
+    <div class="flex items-center gap-1.5 px-4 py-3 border-b border-border">
+      <span class="w-2.5 h-2.5 rounded-full bg-elevated"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-elevated"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-elevated"></span>
+      <span class="ml-3 text-xs text-fg-faint">tormorten@verdal — zsh</span>
+    </div>
+    <div class="px-4 py-4 flex flex-col gap-1 leading-relaxed">
+      <div>
+        <span class="text-fg-faint">$ </span><span class="text-accent">deck</span>
+        <span class="text-fg-muted"> listen --queue default</span>
+      </div>
+      <div class="text-fg-dim pl-4">→ watching 4 job classes · 8 workers active</div>
+      <div class="mt-1">
+        <span class="text-fg-faint">$ </span><span class="text-accent">deck</span>
+        <span class="text-fg-muted"> pause App\Jobs\SendNewsletterEmail</span>
+      </div>
+      <div class="text-fg-dim pl-4">→ paused · 0 new jobs will be dispatched</div>
+      <div class="mt-1">
+        <span class="text-fg-faint">$ </span><span class="text-accent">deck</span>
+        <span class="text-fg-muted"> resume --all</span>
+      </div>
+      <div class="text-fg-dim pl-4">→ resumed · queue <span class="text-accent">healthy</span></div>
+      <div class="mt-1">
+        <span class="text-fg-faint">$ </span>
+        <span
+          class="inline-block w-2 h-4 bg-accent align-middle"
+          style="animation: blink 1.05s steps(2, jump-none) infinite;"
+        ></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
