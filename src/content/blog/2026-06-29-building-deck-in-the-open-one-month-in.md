@@ -10,7 +10,7 @@ Short version: not much, and then a little.
 
 ## The numbers, honestly
 
-Package public on GitHub for about three weeks. 500,000+ executions processed through Deck Cloud so far, zero issues. Submitted to Laravel News, which got picked up in their links section and later posted to their LinkedIn (143k followers). One X thread. One blog post that got shared a bit further than I expected on Twitter and LinkedIn.
+Package public on GitHub for about three weeks. 450,000+ executions processed through Deck Cloud so far, zero issues. Submitted to Laravel News, which got picked up in their links section and later posted to their LinkedIn (143k followers). One X thread. One blog post that got shared a bit further than I expected on Twitter and LinkedIn.
 
 Result so far: a handful of teams signed up for Deck Cloud early access. Zero have subscribed. One GitHub star from someone I don't know. One real bug report.
 
